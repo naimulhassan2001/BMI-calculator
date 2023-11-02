@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
                           controller: controllerAge,
                           decoration: InputDecoration(
                               labelText: "Age",
-                              labelStyle: const TextStyle(fontSize: 26,),
+                              labelStyle: const TextStyle(fontSize: 20,),
                               fillColor: Colors.white,
                               filled: true,
                               border: OutlineInputBorder(
@@ -123,7 +123,7 @@ class _MyAppState extends State<MyApp> {
                           controller: controllerWeight,
                           decoration: InputDecoration(
                               labelText: "Weight",
-                              labelStyle: const TextStyle(fontSize: 26,),
+                              labelStyle: const TextStyle(fontSize: 20,),
                               fillColor: Colors.white,
                               filled: true,
                               border: OutlineInputBorder(
@@ -150,7 +150,7 @@ class _MyAppState extends State<MyApp> {
                           controller: controllerFeet,
                           decoration: InputDecoration(
                               labelText: "feet",
-                              labelStyle: const TextStyle(fontSize: 26,),
+                              labelStyle: const TextStyle(fontSize: 20,),
                               fillColor: Colors.white,
                               filled: true,
                               border: OutlineInputBorder(
@@ -165,7 +165,7 @@ class _MyAppState extends State<MyApp> {
                           controller: controllerInch,
                           decoration: InputDecoration(
                               labelText: "inch",
-                              labelStyle: const TextStyle(fontSize: 26,),
+                              labelStyle: const TextStyle(fontSize: 20),
                               fillColor: Colors.white,
                               filled: true,
                               border: OutlineInputBorder(
