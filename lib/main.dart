@@ -14,15 +14,52 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 
   double bmi = 0;
-  String result = '';
-  String stats = '';
+  String status = '';
+  String suggestion = '';
 
 
-  TextEditingController age = TextEditingController();
-  TextEditingController weight = TextEditingController();
-  TextEditingController feet = TextEditingController();
-  TextEditingController inch = TextEditingController();
+  TextEditingController controllerAge = TextEditingController();
+  TextEditingController controllerWeight = TextEditingController();
+  TextEditingController controllerFeet = TextEditingController();
+  TextEditingController controllerInch = TextEditingController();
 
+  getBmi(){
+
+    setState(() {
+      var intAge = int.parse(controllerAge.text);
+      var weight = int.parse(controllerWeight.text);
+      var intFeet = int.parse(controllerFeet.text);
+      var intInch = int.parse(controllerInch.text);
+
+      var doubleFeet = intFeet*30.48;
+      var doubleInch = intInch * 2.54 ;
+
+      var height = (doubleFeet+doubleInch)/100 ;
+       height = height*height ;
+
+
+      var getBmi = weight/height ;
+      bmi = getBmi ;
+
+      if(30 < getBmi) {
+        status = "BMI Status: Obesity";
+        suggestion = "suggestion: try to decrease your Over weight" ;
+      } else if(getBmi > 25) {
+        status = "BMI Status: Overweight " ;
+        suggestion = "suggestion: try to decrease your weight" ;
+      } else if(getBmi > 18.5) {
+        status = "BMI Status: Normal weight " ;
+        suggestion = "suggestion: your are perfect now" ;
+      } else {
+        status = "BMI Status: Underweight" ;
+        suggestion = "suggestion: try to increase your weight" ;
+      }
+
+
+
+    });
+
+  }
 
 
   @override
@@ -30,105 +67,126 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: SafeArea(
+        backgroundColor: Colors.white70,
+        appBar: AppBar(
+            title: const Text('BMI Calculator'),
+          leading: const Icon(Icons.menu),
+        ),
+        body: Center(
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextField(
-                    controller: age,
+                const SizedBox(height: 10,),
+                Row(
+                  children: [
+                    const Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Text('Age : ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                      ) ,),
 
-                    decoration: InputDecoration(
-                        labelText: "Age",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20))),
-                  ),
+                    Expanded(
+                      flex: 4,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: TextField(
+                          controller: controllerAge,
+                          decoration: InputDecoration(
+                              labelText: "Age",
+                              labelStyle: const TextStyle(fontSize: 26,),
+                              fillColor: Colors.white,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20))),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 16,),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextField(
-                    controller: weight,
-                    decoration: InputDecoration(
-                        labelText: "Weight",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20))),
-                  ),
+                Row(
+                  children: [
+                    const Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Text('Weight : ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                      ) ,),
+
+                    Expanded(
+                    flex: 4,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 20),                        child: TextField(
+                          controller: controllerWeight,
+                          decoration: InputDecoration(
+                              labelText: "Weight",
+                              labelStyle: const TextStyle(fontSize: 26,),
+                              fillColor: Colors.white,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20))),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 16,),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextField(
-                    controller: feet,
-                    decoration: InputDecoration(
-                        labelText: "feet",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20))),
-                  ),
+                Row(
+                  children: [
+                    const Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 20),
+                        child: Text('Height : ', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                      ) ,),
+
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10),                        child: TextField(
+                          controller: controllerFeet,
+                          decoration: InputDecoration(
+                              labelText: "feet",
+                              labelStyle: const TextStyle(fontSize: 26,),
+                              fillColor: Colors.white,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20))),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10),                        child: TextField(
+                          controller: controllerInch,
+                          decoration: InputDecoration(
+                              labelText: "inch",
+                              labelStyle: const TextStyle(fontSize: 26,),
+                              fillColor: Colors.white,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(20))),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 16,),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: TextField(
-                    controller: inch,
-                    decoration: InputDecoration(
-                        labelText: "inch",
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20))),
-                  ),
-                ),
                 const SizedBox(height: 16,),
 
-                ElevatedButton(onPressed: (){
-
-                  setState(() {
-                    var iAge = int.parse(age.text);
-                    var iWeight = int.parse(weight.text);
-                    var iFeet = int.parse(feet.text);
-                    var iInch = int.parse(inch.text);
-
-                    var dFeet = iFeet*30.48;
-                    var dinch = iInch * 2.54 ;
-
-                    var hight = dFeet+dinch ;
-                    var dhight = hight/100;
-
-                    var qhight = dhight*dhight ;
-
-
-                    var bm = iWeight/qhight ;
-
-                    if(30 < bm) {
-                      result = "Obesity";
-                      stats = "try to decrease your Over weight" ;
-                    } else if(bm > 25) {
-                      result = "Overweight " ;
-                      stats = "try to decrease your weight" ;
-                    } else if(bm > 18.5) {
-                      result = "Normal weight " ;
-                      stats = "your are perfect now" ;
-                    } else {
-                      result = "Underweight" ;
-                      stats = "try to increase your weight" ;
-                    }
-
-                    bmi = bm ;
-
-
-                  });
-
-                }, child: const Text("BMi")),
+                ElevatedButton(onPressed: getBmi, child: const Text("Get BMI")),
                 const SizedBox(height: 16,),
-                Text('$bmi', style: const TextStyle(fontSize: 26),),
+                Text('BMI: $bmi', style: const TextStyle(fontWeight: FontWeight.bold),),
                 const SizedBox(height: 16, ),
-                Text('$result', style: const TextStyle(fontSize: 26),),
-                const SizedBox(height: 10, ),
+                Text(status, style: const TextStyle(fontWeight: FontWeight.bold),),
+                const SizedBox(height: 16, ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Text('$stats', style: const TextStyle(fontSize: 26),),
+                  child: Text(suggestion, style: const TextStyle(fontWeight: FontWeight.bold),),
                 ),
 
 
@@ -140,3 +198,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
+
+
+
